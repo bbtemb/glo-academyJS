@@ -27,8 +27,8 @@ const getRollbackMessage = function (price) {
   }
 };
 
-const getTtitle = function (string) {
-  string = string.trim(string);
+const getTitle = function (string) {
+  string = string.trim().toLowerCase();
   return string[0].toUpperCase() + string.slice(1);
 };
 
@@ -46,7 +46,7 @@ const getServicePercentPrices = function (price, servicePercent) {
 
 adaptive = adaptive === 'Да' || adaptive === 'да' ? true : false;
 
-title = getTtitle(title);
+title = getTitle(title);
 
 allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
 
