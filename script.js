@@ -3,6 +3,7 @@
 let title;
 let screens;
 let screenPrice;
+let servicePrice;
 let adaptive;
 let rollback = 20;
 let allServicePrices;
@@ -10,27 +11,35 @@ let fullPrice;
 let servicePercentPrice;
 let service1;
 let service2;
+let minScreenPrice = 1000;
+let minServicePrice = 1000;
+let sum = 0;
 
 const isNumber = function (num) {
-  return !isNaN(parseFloat(num)) && isFinite(num) && num > 0;
+  return !isNaN(parseFloat(num)) && isFinite(num);
 };
 
 const asking = function () {
   title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
   screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные');
   adaptive = prompt('Нужен ли адаптив на сайте?', 'Да');
-
-  // screenPrice = prompt('Сколько будет стоить данная работа?');
-  // while (!isNumber(screenPrice)) {
-  //   screenPrice = prompt('Сколько будет стоить данная работа?');
-  // }
 };
 
 const screenPriceAsking = function () {
   do {
-    screenPrice = +prompt('Сколько будет стоить данная работа?');
+    screenPrice = prompt('Сколько будет стоить данная работа?');
+    if (screenPrice === null) {
+      if (
+        confirm(
+          'Вы уверены, что хотите завершить ввод данных? Сумма будет рассчитана исходя из миниальной цены.'
+        ) === true
+      ) {
+        screenPrice = minScreenPrice;
+        return;
+      } else screenPriceAsking();
+    }
   } while (!isNumber(screenPrice));
-  // screenPrice = +screenPrice;
+  screenPrice = Number(screenPrice);
 };
 
 const showTypeOf = function (variable) {
@@ -54,9 +63,25 @@ const getTitle = function (string) {
   return string[0].toUpperCase() + string.slice(1);
 };
 
+const servicePriceAsking = function () {
+  do {
+    servicePrice = prompt('Сколько это будет стоить ?');
+    if (servicePrice === null) {
+      if (
+        confirm(
+          'Вы уверены, что хотите завершить ввод данных? Сумма будет рассчитана исходя из миниальной цены.'
+        ) === true
+      ) {
+        servicePrice = minServicePrice;
+        sum += Number(servicePrice);
+        return;
+      } else screenPriceAsking();
+    }
+  } while (!isNumber(servicePrice));
+  sum += Number(servicePrice);
+};
+
 const getAllServicePrices = function () {
-  let servicePrice = 0;
-  let sum = 0;
   for (let i = 0; i < 2; i++) {
     if (i === 0) {
       service1 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
@@ -66,14 +91,10 @@ const getAllServicePrices = function () {
         'Отправка форм'
       );
     }
-    do {
-      servicePrice = +prompt('Сколько это будет стоить?');
-    } while (!isNumber(servicePrice));
-    sum += +servicePrice;
+    servicePriceAsking();
   }
   return sum;
 };
-
 function getFullPrice() {
   return allServicePrices + +screenPrice;
 }
