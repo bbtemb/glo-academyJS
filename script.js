@@ -103,33 +103,9 @@ const getServicePercentPrices = function () {
   return Math.ceil(fullPrice - fullPrice * (rollback / 100));
 };
 
-// asking();
 screenPriceAsking();
 
-// adaptive = adaptive === 'Да' || adaptive === 'да' ? true : false;
-// title = getTitle(title);
 allServicePrices = getAllServicePrices();
 
-// fullPrice = getFullPrice();
-// servicePercentPrice = getServicePercentPrices();
-
-// showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(allServicePrices);
-// showTypeOf(adaptive);
-// showTypeOf(fullPrice);
-// showTypeOf(servicePercentPrice);
-
-// console.log(screens.toLowerCase().split(', '));
-// console.log(getRollbackMessage(fullPrice));
-// console.log('servicePercentPrice: ', servicePercentPrice);
-// console.log('allServicePrices: ', allServicePrices);
-
-// console.log('servicePercentPrice: ', servicePercentPrice);
-// console.log(title);
-// console.log(typeof fullPrice);
-// console.log(adaptive);
-// // console.log(screens);
-// console.log('Стоимость верстки экранов', screenPrice, 'рублей');
-// console.log('Стоимость разработки сайта', fullPrice, 'рублей');
-// // console.log(fullPrice * (rollback / 100));
