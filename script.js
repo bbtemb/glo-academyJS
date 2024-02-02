@@ -12,7 +12,7 @@ let service1;
 let service2;
 
 const isNumber = function (num) {
-  return !isNaN(parseFloat(num)) && isFinite(num) && !/\s/.test(num);
+  return !isNaN(parseFloat(num)) && isFinite(num) && num > 0;
 };
 
 const asking = function () {
@@ -28,9 +28,9 @@ const asking = function () {
 
 const screenPriceAsking = function () {
   do {
-    screenPrice = prompt('Сколько будет стоить данная работа?');
+    screenPrice = +prompt('Сколько будет стоить данная работа?');
   } while (!isNumber(screenPrice));
-  screenPrice = +screenPrice;
+  // screenPrice = +screenPrice;
 };
 
 const showTypeOf = function (variable) {
@@ -59,12 +59,15 @@ const getAllServicePrices = function () {
   let sum = 0;
   for (let i = 0; i < 2; i++) {
     if (i === 0) {
-      service1 = prompt('Какой дополнительный тип услуги нужен?');
+      service1 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
     } else if (i === 1) {
-      service2 = prompt('Какой дополнительный тип услуги нужен?');
+      service2 = prompt(
+        'Какой дополнительный тип услуги нужен?',
+        'Отправка форм'
+      );
     }
     do {
-      servicePrice = prompt('Сколько это будет стоить?');
+      servicePrice = +prompt('Сколько это будет стоить?');
     } while (!isNumber(servicePrice));
     sum += +servicePrice;
   }
@@ -79,24 +82,25 @@ const getServicePercentPrices = function () {
   return Math.ceil(fullPrice - fullPrice * (rollback / 100));
 };
 
-asking();
+// asking();
 screenPriceAsking();
 
-adaptive = adaptive === 'Да' || adaptive === 'да' ? true : false;
-title = getTitle(title);
+// adaptive = adaptive === 'Да' || adaptive === 'да' ? true : false;
+// title = getTitle(title);
 allServicePrices = getAllServicePrices();
 
-fullPrice = getFullPrice();
-servicePercentPrice = getServicePercentPrices();
+// fullPrice = getFullPrice();
+// servicePercentPrice = getServicePercentPrices();
 
-showTypeOf(title);
+// showTypeOf(title);
 showTypeOf(screenPrice);
-showTypeOf(adaptive);
-showTypeOf(fullPrice);
-showTypeOf(servicePercentPrice);
+showTypeOf(allServicePrices);
+// showTypeOf(adaptive);
+// showTypeOf(fullPrice);
+// showTypeOf(servicePercentPrice);
 
 // console.log(screens.toLowerCase().split(', '));
-console.log(getRollbackMessage(fullPrice));
+// console.log(getRollbackMessage(fullPrice));
 // console.log('servicePercentPrice: ', servicePercentPrice);
 // console.log('allServicePrices: ', allServicePrices);
 
@@ -104,7 +108,7 @@ console.log(getRollbackMessage(fullPrice));
 // console.log(title);
 // console.log(typeof fullPrice);
 // console.log(adaptive);
-// console.log(screens);
-console.log('Стоимость верстки экранов', screenPrice, 'рублей');
-console.log('Стоимость разработки сайта', fullPrice, 'рублей');
-// console.log(fullPrice * (rollback / 100));
+// // console.log(screens);
+// console.log('Стоимость верстки экранов', screenPrice, 'рублей');
+// console.log('Стоимость разработки сайта', fullPrice, 'рублей');
+// // console.log(fullPrice * (rollback / 100));
