@@ -75,13 +75,19 @@ const servicePriceAsking = function () {
         servicePrice = minServicePrice;
         sum += Number(servicePrice);
         return;
-      } else screenPriceAsking();
+      } else {
+        servicePriceAsking();
+        sum = 0;
+        console.log('sum: ', sum);
+      }
     }
   } while (!isNumber(servicePrice));
   sum += Number(servicePrice);
+  console.log('sum: ', sum);
 };
 
 const getAllServicePrices = function () {
+  sum = 0;
   for (let i = 0; i < 2; i++) {
     if (i === 0) {
       service1 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
@@ -105,7 +111,7 @@ const getServicePercentPrices = function () {
 
 screenPriceAsking();
 
-allServicePrices = getAllServicePrices();
+// allServicePrices = getAllServicePrices();
 
 showTypeOf(screenPrice);
-showTypeOf(allServicePrices);
+// showTypeOf(allServicePrices);
