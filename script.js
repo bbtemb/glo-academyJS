@@ -64,8 +64,8 @@ const getTitle = function (string) {
 };
 
 const servicePriceAsking = function () {
-  do {
-    servicePrice = prompt('Сколько это будет стоить ?');
+  label: do {
+    servicePrice = prompt('Сколько это будет стоить?');
     if (servicePrice === null) {
       if (
         confirm(
@@ -76,14 +76,11 @@ const servicePriceAsking = function () {
         sum += Number(servicePrice);
         return;
       } else {
-        servicePriceAsking();
-        sum = 0;
-        console.log('sum: ', sum);
+        continue label;
       }
     }
   } while (!isNumber(servicePrice));
   sum += Number(servicePrice);
-  console.log('sum: ', sum);
 };
 
 const getAllServicePrices = function () {
@@ -111,7 +108,7 @@ const getServicePercentPrices = function () {
 
 screenPriceAsking();
 
-// allServicePrices = getAllServicePrices();
+allServicePrices = getAllServicePrices();
 
 showTypeOf(screenPrice);
-// showTypeOf(allServicePrices);
+showTypeOf(allServicePrices);
