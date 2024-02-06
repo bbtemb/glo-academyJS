@@ -51,13 +51,14 @@ const appData = {
     }
 
     for (let i = 0; i < 2; i++) {
+      let id;
       let name;
       label: do {
         name = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
         if (name === null) continue label;
         else name = name.trim();
       } while (!appData.isText(name));
-      appData.services[name] = +appData.servicePriceAsking();
+      appData.services[i + '. ' + name] = +appData.servicePriceAsking();
     }
 
     appData.adaptive = prompt('Нужен ли адаптив на сайте?', 'Да');
@@ -67,9 +68,14 @@ const appData = {
 
   addPrices: function () {
     appData.screenPrice = 0;
-    for (let screen of appData.screens) {
-      appData.screenPrice += +screen.price;
-    }
+    appData.screenPrice = appData.screens.reduce(function (
+      accumulator,
+      currentValue
+    ) {
+      const price = currentValue.price;
+      return accumulator + price;
+    },
+    0);
 
     for (let key in appData.services) {
       appData.allServicePrices += appData.services[key];
@@ -159,6 +165,7 @@ const appData = {
     console.log(appData.servicePercentPrice);
     console.log(appData.allServicePrices);
     console.log(appData.screens);
+    console.log(appData.services);
   },
 };
 
