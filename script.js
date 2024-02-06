@@ -4,7 +4,6 @@ const appData = {
   title: '',
   screens: [],
   screenPrice: '',
-  sumOfscreenPrices: 0,
   servicePrice: 0,
   adaptive: true,
   rollback: 10,
@@ -67,8 +66,9 @@ const appData = {
   },
 
   addPrices: function () {
+    appData.screenPrice = 0;
     for (let screen of appData.screens) {
-      appData.sumOfscreenPrices += +screen.price;
+      appData.screenPrice += +screen.price;
     }
 
     for (let key in appData.services) {
@@ -139,7 +139,7 @@ const appData = {
   },
 
   getFullPrice: function () {
-    appData.fullPrice = appData.allServicePrices + +appData.sumOfscreenPrices;
+    appData.fullPrice = appData.allServicePrices + appData.screenPrice;
   },
 
   getServicePercentPrices: function () {
