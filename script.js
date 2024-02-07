@@ -26,20 +26,20 @@ const appData = {
   },
 
   asking: function () {
-    label: do {
+    do {
       appData.title = prompt(
         'Как называется ваш проект?',
         'Калькулятор верстки'
       );
-      if (appData.title === null) continue label;
+      if (appData.title === null) appData.title = '';
       else appData.title = appData.title.trim();
     } while (!appData.isText(appData.title));
 
     for (let i = 0; i < 2; i++) {
       let name;
-      label: do {
+      do {
         name = prompt('Какие типы экранов нужно разработать?');
-        if (name === null) continue label;
+        if (name === null) name = '';
         else name = name.trim();
       } while (!appData.isText(name));
       appData.screenPriceAsking();
@@ -51,11 +51,10 @@ const appData = {
     }
 
     for (let i = 0; i < 2; i++) {
-      let id;
       let name;
-      label: do {
+      do {
         name = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
-        if (name === null) continue label;
+        if (name === null) name = '';
         else name = name.trim();
       } while (!appData.isText(name));
       appData.services[i + '. ' + name] = +appData.servicePriceAsking();
@@ -89,7 +88,7 @@ const appData = {
         if (
           confirm(
             'Вы уверены, что хотите завершить ввод данных? Сумма будет рассчитана исходя из миниальной цены.'
-          ) === true
+          )
         ) {
           appData.screenPrice = appData.minScreenPrice;
           return;
@@ -126,18 +125,18 @@ const appData = {
   },
 
   servicePriceAsking: function (price) {
-    label: do {
+    do {
       price = prompt('Сколько это будет стоить?');
       if (price === null) {
         if (
           confirm(
             'Вы уверены, что хотите завершить ввод данных? Сумма будет рассчитана исходя из миниальной цены.'
-          ) === true
+          )
         ) {
           price = appData.minServicePrice;
           return price;
         } else {
-          continue label;
+          price = NaN;
         }
       }
     } while (!appData.isNumber(price));
@@ -146,12 +145,6 @@ const appData = {
 
   getFullPrice: function () {
     appData.fullPrice = appData.allServicePrices + appData.screenPrice;
-  },
-
-  getServicePercentPrices: function () {
-    return Math.ceil(
-      appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
-    );
   },
 
   getServicePercentPrices: function () {
@@ -171,4 +164,4 @@ const appData = {
 
 appData.start();
 
-// console.log(appData.isText('Как называется ваш проект?'))
+// console.log(appData.isText(''));
