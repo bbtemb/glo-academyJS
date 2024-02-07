@@ -1,5 +1,17 @@
 'use strict';
 
+const h1Title = document.getElementsByTagName('h1')[0];
+const listButtons = Array.from(document.getElementsByClassName('handler_btn'));
+const plusButton = document.querySelector('.screen-btn');
+const otherItemsPercent = document.querySelectorAll('.other-items.percent');
+const otherItemsNumber = document.querySelectorAll('.other-items.number');
+const inputRange = document.querySelector('.rollback  input[type=range]');
+const rangeValue = document.querySelector('.rollback  span.range-value');
+const listTotalInput = Array.from(
+  document.getElementsByClassName('total-input')
+);
+let listScreen = document.querySelectorAll('.screen option');
+
 const appData = {
   title: '',
   screens: [],
@@ -162,6 +174,4 @@ const appData = {
   },
 };
 
-appData.start();
-
-// console.log(appData.isText(''));
+// appData.start();
