@@ -75,7 +75,6 @@ const appData = {
     appData.checkEmptyScreens()
       ? appData.showResult()
       : alert('Выберите тип экранов');
-    console.log(appData.calculated);
   },
 
   showResult: function () {
