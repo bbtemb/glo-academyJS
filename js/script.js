@@ -37,17 +37,13 @@ const appData = {
   minScreenPrice: 1000,
   minServicePrice: 1000,
   sum: 0,
-  calculated: false,
 
   init: function () {
     appData.addTitle();
 
     startBtn.addEventListener('click', appData.start);
     buttonPlus.addEventListener('click', appData.addScreenBlock);
-    inputRange.addEventListener('input', function () {
-      appData.addRollback();
-      appData.updateServicePercentPrice();
-    });
+    inputRange.addEventListener('input', appData.addRollback);
   },
 
   addTitle: function () {
@@ -59,13 +55,6 @@ const appData = {
     rangeValue.innerText = appData.rollback + '%';
   },
 
-  updateServicePercentPrice: function () {
-    if (appData.calculated)
-      totalCountRollback.value = appData.servicePercentPrice = Math.ceil(
-        appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
-      );
-  },
-
   start: function () {
     appData.addScreens();
     appData.addServices();
@@ -75,7 +64,6 @@ const appData = {
     appData.checkEmptyScreens()
       ? appData.showResult()
       : alert('Выберите тип экранов');
-    console.log(appData.calculated);
   },
 
   showResult: function () {
@@ -85,8 +73,6 @@ const appData = {
     fullTotalCount.value = appData.fullPrice;
     totalCountRollback.value = appData.servicePercentPrice;
     totalCount.value = appData.totalScreenCount;
-
-    appData.calculated = true;
   },
 
   addScreens: function () {
