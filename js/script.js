@@ -88,37 +88,45 @@ const appData = {
   },
 
   start: function () {
-    appData.addScreens();
-    appData.addServices();
-    appData.addScreenPrices();
-    appData.addOtherPrices();
-    appData.addTotalPrices();
+    const boundFunc = function () {
+      this.addScreens();
+      this.addServices();
+      this.addScreenPrices();
+      this.addOtherPrices();
+      this.addTotalPrices();
 
-    if (appData.checkEmptyScreens()) {
-      if (appData.checkScreenCount()) {
-        if (appData.checkEmptyCMS()) {
-          if (appData.checkEmptyCMSPercent()) {
-            appData.showResult();
-            appData.inputsOff();
-            appData.showResetBtn();
-          } else alert('Введите значение % стоимости за работу');
-        } else alert('Выберите тип CMS');
-      } else alert('Введите количество экранов');
-    } else alert('Выберите тип экранов');
+      if (this.checkEmptyScreens()) {
+        if (this.checkScreenCount()) {
+          if (this.checkEmptyCMS()) {
+            if (this.checkEmptyCMSPercent()) {
+              this.showResult();
+              this.inputsOff();
+              this.showResetBtn();
+            } else alert('Введите значение % стоимости за работу');
+          } else alert('Выберите тип CMS');
+        } else alert('Введите количество экранов');
+      } else alert('Выберите тип экранов');
+    }.bind(appData);
+
+    boundFunc();
   },
 
   reset: function () {
-    inputScreenCount.value = '';
-    inputRange.value = 0;
-    rangeValue.innerText = 0 + '%';
-    appData.resetResult();
-    appData.removeScreens();
-    appData.removeSelectsCMS();
-    listCheckboxes.forEach((element) => {
-      element.checked = false;
-    });
-    appData.inputsOn();
-    appData.showStartBtn();
+    const boundFunc = function () {
+      inputScreenCount.value = '';
+      inputRange.value = 0;
+      rangeValue.innerText = 0 + '%';
+      this.resetResult();
+      this.removeScreens();
+      this.removeSelectsCMS();
+      listCheckboxes.forEach((element) => {
+        element.checked = false;
+      });
+      this.inputsOn();
+      this.showStartBtn();
+    }.bind(appData);
+
+    boundFunc();
   },
 
   showResult: function () {
@@ -149,7 +157,7 @@ const appData = {
         const input = screen.querySelector('input');
         const selectName = select.options[select.selectedIndex].textContent;
 
-        appData.screens.push({
+        this.screens.push({
           id: index,
           name: selectName,
           price: +select.value * +input.value,
@@ -273,26 +281,18 @@ const appData = {
   },
 
   inputsOff: function () {
-    inputRange.setAttribute('disabled', '');
     document
       .querySelectorAll('.main-controls__input  input[type=text]')
       .forEach((element) => {
         element.setAttribute('disabled', '');
       });
-    listCheckboxes.forEach((element) => {
-      element.setAttribute('disabled', '');
-    });
     document.querySelectorAll('select').forEach((element) => {
       element.setAttribute('disabled', '');
     });
     buttonPlus.setAttribute('disabled', '');
   },
   inputsOn: function () {
-    inputRange.removeAttribute('disabled');
     inputScreenCount.removeAttribute('disabled');
-    listCheckboxes.forEach((element) => {
-      element.removeAttribute('disabled');
-    });
     document.querySelectorAll('select').forEach((element) => {
       element.removeAttribute('disabled');
     });
@@ -334,7 +334,6 @@ const appData = {
     selectsCMS.selectedIndex = 0;
     otherInputCMS.removeAttribute('disabled');
     otherInputCMS.value = '';
-    console.log(otherInputCMS.value);
     document.querySelector(
       '.hidden-cms-variants .main-controls__input'
     ).style.display = 'none';
