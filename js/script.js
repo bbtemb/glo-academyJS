@@ -53,17 +53,11 @@ const appData = {
   init: function () {
     this.addTitle();
 
-    startBtn.addEventListener('click', this.start);
-    resetBtn.addEventListener('click', this.reset);
+    startBtn.addEventListener('click', this.start.bind(appData));
+    resetBtn.addEventListener('click', this.reset.bind(appData));
     checkboxCMS.addEventListener('change', this.showCMSBlock);
-    selectsCMS.addEventListener('change', () => {
-      this.addCMSPrice();
-    });
-    otherInputCMS.addEventListener('change', () => {
-      this.addCMSPrice();
-    });
-    // selectsCMS.addEventListener('change', this.addCMSPrice);
-    // otherInputCMS.addEventListener('change', this.addCMSPrice);
+    selectsCMS.addEventListener('change', this.addCMSPrice.bind(appData));
+    otherInputCMS.addEventListener('change', this.addCMSPrice.bind(appData));
     buttonPlus.addEventListener('click', this.addScreenBlock);
     inputRange.addEventListener('input', () => {
       this.addRollback();
@@ -88,45 +82,37 @@ const appData = {
   },
 
   start: function () {
-    const boundFunc = function () {
-      this.addScreens();
-      this.addServices();
-      this.addScreenPrices();
-      this.addOtherPrices();
-      this.addTotalPrices();
+    this.addScreens();
+    this.addServices();
+    this.addScreenPrices();
+    this.addOtherPrices();
+    this.addTotalPrices();
 
-      if (this.checkEmptyScreens()) {
-        if (this.checkScreenCount()) {
-          if (this.checkEmptyCMS()) {
-            if (this.checkEmptyCMSPercent()) {
-              this.showResult();
-              this.inputsOff();
-              this.showResetBtn();
-            } else alert('Введите значение % стоимости за работу');
-          } else alert('Выберите тип CMS');
-        } else alert('Введите количество экранов');
-      } else alert('Выберите тип экранов');
-    }.bind(appData);
-
-    boundFunc();
+    if (this.checkEmptyScreens()) {
+      if (this.checkScreenCount()) {
+        if (this.checkEmptyCMS()) {
+          if (this.checkEmptyCMSPercent()) {
+            this.showResult();
+            this.inputsOff();
+            this.showResetBtn();
+          } else alert('Введите значение % стоимости за работу');
+        } else alert('Выберите тип CMS');
+      } else alert('Введите количество экранов');
+    } else alert('Выберите тип экранов');
   },
 
   reset: function () {
-    const boundFunc = function () {
-      inputScreenCount.value = '';
-      inputRange.value = 0;
-      rangeValue.innerText = 0 + '%';
-      this.resetResult();
-      this.removeScreens();
-      this.removeSelectsCMS();
-      listCheckboxes.forEach((element) => {
-        element.checked = false;
-      });
-      this.inputsOn();
-      this.showStartBtn();
-    }.bind(appData);
-
-    boundFunc();
+    inputScreenCount.value = '';
+    inputRange.value = 0;
+    rangeValue.innerText = 0 + '%';
+    this.resetResult();
+    this.removeScreens();
+    this.removeSelectsCMS();
+    listCheckboxes.forEach((element) => {
+      element.checked = false;
+    });
+    this.inputsOn();
+    this.showStartBtn();
   },
 
   showResult: function () {
