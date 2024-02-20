@@ -55,10 +55,10 @@ const appData = {
 
     startBtn.addEventListener('click', this.start.bind(appData));
     resetBtn.addEventListener('click', this.reset.bind(appData));
-    checkboxCMS.addEventListener('change', this.showCMSBlock);
+    checkboxCMS.addEventListener('change', this.showCMSBlock.bind(this));
     selectsCMS.addEventListener('change', this.addCMSPrice.bind(appData));
     otherInputCMS.addEventListener('change', this.addCMSPrice.bind(appData));
-    buttonPlus.addEventListener('click', this.addScreenBlock);
+    buttonPlus.addEventListener('click', this.addScreenBlock.bind(this));
     inputRange.addEventListener('input', () => {
       this.addRollback();
       this.updateServicePercentPrice();
